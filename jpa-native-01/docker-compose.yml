@@ -1,0 +1,25 @@
+# Use root/example as user/password credentials
+version: '3.3'
+
+services:
+  db:
+    image: mysql:8.0.35
+    container_name: db-container # container 이름 설정
+    restart: always
+    environment:
+      MYSQL_PORT: 3306
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DB_NAME}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+    ports:
+      - "3306:3306" # docker engine 에게 각 container에게 포트를 수동으로 설정하게 해줍니다.
+    volumes:
+      - './mysql/conf.d:/etc/mysql/conf.d'
+      - './mysql/data:/var/lib/mysql'
+      - './mysql/initdb.d:/docker-entrypoint-initdb.d'
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake

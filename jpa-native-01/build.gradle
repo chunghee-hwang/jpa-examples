@@ -1,0 +1,31 @@
+plugins {
+	id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.hibernate:hibernate-core:6.0.0.Final'
+	implementation 'org.hibernate:hibernate-hikaricp:6.0.0.Final'
+	implementation 'mysql:mysql-connector-java:8.0.27'
+	implementation 'ch.qos.logback:logback-classic:1.2.6'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
